@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="4dp"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="?attr/colorSurface"
-    android:foreground="?attr/selectableItemBackground">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp">
 
 
     <LinearLayout
@@ -20,26 +21,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/promise_text"
-            android:textSize="25sp"
             android:textColor="?attr/colorOnSurface"
-            android:textStyle="bold"/>
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/timeHeldText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/time_held"
-            android:textSize="20sp"
             android:textColor="?attr/colorOnSurface"
-            android:layout_marginTop="8dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/violationsCountText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="@string/violations"
-            android:textSize="16sp"
-            android:layout_marginTop="4dp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="8dp">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="start"
+            android:background="@drawable/rounded_button_background"
+            android:clickable="true"
+            android:contentDescription="@string/settings"
+            android:foregroundGravity="fill"
+            app:srcCompat="@drawable/baseline_person_24" />
+
+        <!-- Пространство для центрирования кнопки справа -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <!-- Кнопка справа -->
+        <ImageButton
+            android:id="@+id/action_settings"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_button_background"
+            android:clickable="true"
+            android:contentDescription="@string/settings"
+            android:foregroundGravity="fill"
+            app:srcCompat="@drawable/baseline_settings_24" />
+        <!--            android:foreground="?attr/selectableItemBackground"-->
+    </LinearLayout>
+    <!-- Разделитель (граница снизу) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/gradient_border" />
+
+</LinearLayout>

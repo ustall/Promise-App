@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/main_promises_fragment">
+
+    <fragment
+        android:id="@+id/main_promises_fragment"
+        android:label="Promises"
+        tools:layout="@layout/main_promises_fragment"
+        android:name="com.example.pledge.ui.PromisesFragment">
+        <action
+            android:id="@+id/action_main_promises_fragment_to_addPromiseFragment"
+            app:destination="@id/addPromiseFragment"
+            app:enterAnim="@anim/slide_in_right_fast" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addPromiseFragment"
+        android:name="com.example.pledge.ui.AddPromiseFragment"
+        android:label="Add Promise"
+        tools:layout="@layout/add_new_promise_fragment">
+        <action
+            android:id="@+id/action_addPromiseFragment_to_promisesRecycleViewFragment"
+            app:destination="@id/main_promises_fragment"
+            app:enterAnim="@anim/slide_out_to_left_fast"
+            app:popUpTo="@id/main_promises_fragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_addPromiseFragment_to_main_promises_fragment"
+            app:destination="@id/main_promises_fragment"
+            app:enterAnim="@anim/slide_out_to_left_fast" />
+    </fragment>
+
+</navigation>
