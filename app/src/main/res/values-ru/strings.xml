@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="time_held">Время выполнения:</string>
+    <string name="promise_text">Текст обещания</string>
+    <string name="streak_number">5</string>
+    <string name="days_in_a_row">Дней подряд!</string>
+    <string name="settings">Настройки</string>
+    <string name="title_activity_navigation_drawer">Навигационное_меню</string>
+    <string name="navigation_drawer_open">Открыть навигационное меню</string>
+    <string name="navigation_drawer_close">Закрыть навигационное меню</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Заголовок навигации</string>
+    <string name="action_settings">Настройки</string>
+    <string name="menu_home">Главная</string>
+    <string name="menu_gallery">Галерея</string>
+    <string name="menu_slideshow">Слайдшоу</string>
+
+    <string name="violations">Нарушений: %d</string>
+    <string name="keep_from">Держишься уже\n%1$d %2$s %3$d %4$s %5$d %6$s</string>
+    <string name="days">дней</string>
+    <string name="hours">часов</string>
+    <string name="minutes">минут</string>
+
+
+    <string name="i_promise_to">Я обещаю</string>
+    <string name="task_text_hint">Бросить курить</string>
+    <string name="cancel">Отмена</string>
+    <string name="confirm">Обещаю!</string>
+    <string name="starting">Начиная</string>
+    <string name="right_now">прямо сейчас</string>
+    <string name="time_to_start_your_new_life">Пришло время начать новую жизнь!</string>
+    <string name="no_streak">0</string>
+    <string name="in_a_row">Подряд!</string>
+    <string name="no_streak_description">Но не сдавайся!</string>
+
+    <string name="streak_less_than_week">Дня\nСерия: Менее недели\nОтличное начало!</string>
+    <string name="streak_less_than_month">Дней\nСерия: Менее месяца\nПродолжай!</string>
+    <string name="streak_less_than_year">Дней\nСерия: Менее года\nСделай цифру в 365!</string>
+    <string name="streak_over_year">Дней\nСерия: Более года\nТы действительно сильный! Не сломай её!</string>
+    <string name="reset_timer">Перезапустить таймер?</string>
+    <string name="do_you_want_to_reset_the_timer_for_this_promise">Вы точно хотите сбросить вашу серию?</string>
+    <string name="yes">Да</string>>
+    <string name="no">Нет</string>
+    <string name="delete_promise">Удалить обещание?</string>
+    <string name="are_you_sure_you_want_to_delete_this_promise">Вы точно хотите удалить ваше обещание?</string>
+    <string name="promise_deleted">Обещание удалено</string>
+    <string name="undo">Отмена</string>
+
+</resources>

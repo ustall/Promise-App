@@ -85,12 +85,12 @@ class PromisesRecycleViewFragment : Fragment() {
 
     private fun showResetTimerDialog(promise: Promise) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Reset Timer?")
-            .setMessage("Do you want to reset the timer for this promise?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle(getString(R.string.reset_timer))
+            .setMessage(getString(R.string.do_you_want_to_reset_the_timer_for_this_promise))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 resetTimerForPromise(promise)
             }
-            .setNegativeButton("No", null)
+            .setNegativeButton(getString(R.string.no), null)
             .show()
     }
 
@@ -134,12 +134,12 @@ class PromisesRecycleViewFragment : Fragment() {
 
     private fun showDeleteConfirmationDialog(promise: Promise, position: Int) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Delete Promise?")
-            .setMessage("Are you sure you want to delete this promise?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle(getString(R.string.delete_promise))
+            .setMessage(getString(R.string.are_you_sure_you_want_to_delete_this_promise))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 deletePromise(promise, position)
             }
-            .setNegativeButton("No") { _, _ ->
+            .setNegativeButton(getString(R.string.no)) { _, _ ->
                 // Восстанавливаем элемент, если пользователь отменяет действие
                 adapter.notifyItemChanged(position)
             }
@@ -151,8 +151,9 @@ class PromisesRecycleViewFragment : Fragment() {
         adapter.removeItemAt(position)
 
         // Показываем Snackbar с возможностью отмены
-        val snackbar = Snackbar.make(binding.root, "Promise deleted", Snackbar.LENGTH_LONG)
-        snackbar.setAction("Undo") {
+        val snackbar = Snackbar.make(binding.root,
+            getString(R.string.promise_deleted), Snackbar.LENGTH_LONG)
+        snackbar.setAction(getString(R.string.undo)) {
             undoDeletePromise(promise, position)
         }
         snackbar.addCallback(object : Snackbar.Callback() {

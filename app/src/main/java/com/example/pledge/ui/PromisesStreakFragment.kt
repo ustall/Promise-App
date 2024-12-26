@@ -56,7 +56,6 @@ class PromisesStreakFragment : Fragment() {
 
                     withContext(Dispatchers.Main) {
                         binding.streakNumber.text = "$days"
-                        binding.streakNumber.text = "$days"
                         binding.streakDescription.text = when {
                             days < 7 -> getString(R.string.streak_less_than_week)
                             days in 7..30 -> getString(R.string.streak_less_than_month)
