@@ -20,6 +20,9 @@ class PromisesFragment : Fragment(R.layout.main_promises_fragment) {
         // Вставляем фрагмент RecyclerView в главный фрагмент
         if (savedInstanceState == null) {
             childFragmentManager.beginTransaction().apply {
+                if (childFragmentManager.findFragmentById(R.id.nav_tool_bar) == null) {
+                    replace(R.id.nav_tool_bar, ToolBarFragment())
+                }
                 // Проверка, что фрагменты еще не добавлены
                 if (childFragmentManager.findFragmentById(R.id.promises_list_view) == null) {
                     replace(R.id.promises_list_view, PromisesRecycleViewFragment())

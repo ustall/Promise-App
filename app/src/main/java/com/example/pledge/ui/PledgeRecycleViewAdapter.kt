@@ -1,31 +1,31 @@
 package com.example.pledge.ui
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pledge.R
 import com.example.pledge.databinding.PromiseCardviewBinding
 import com.example.pledge.db.Promise
-import com.example.pledge.utils.PromiseUtils
-import java.text.SimpleDateFormat
-import java.time.Duration
-import java.time.Instant
 
 class PledgeRecycleViewAdapter(
     private var promises: List<Promise>,
-    private val onLongClick: (Promise) -> Unit // Обработчик долгого нажатия
+    private val onClick: (Promise) -> Unit,
+    private val onLongClick: (Promise) -> Unit,
 ) : RecyclerView.Adapter<PledgeRecycleViewAdapter.PledgeViewHolder>() {
 
     // Вложенный класс ViewHolder для каждого элемента списка
     class PledgeViewHolder(val binding: PromiseCardviewBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(promise: Promise, onLongClick: (Promise) -> Unit) {
+        fun bind(promise: Promise, onClick: (Promise) -> Unit, onLongClick: (Promise) -> Unit) {
             val context = binding.root.context
             binding.promiseText.text = promise.text
             binding.timeHeldText.text = PromiseUtils.formatTimeHeld(context, promise.lastFailureDate)
             binding.violationsCountText.text = PromiseUtils.formatViolationsCount(context, promise.failureCount)
+
+            // Установка обработчика обычного клика
+            binding.root.setOnClickListener {
+                onClick(promise)
+            }
 
             // Установка обработчика долгого нажатия
             binding.root.setOnLongClickListener {
@@ -42,7 +42,7 @@ class PledgeRecycleViewAdapter(
 
     override fun onBindViewHolder(holder: PledgeViewHolder, position: Int) {
         val promise = promises[position]
-        holder.bind(promise, onLongClick)
+        holder.bind(promise,onClick, onLongClick)
     }
 
     override fun getItemCount(): Int = promises.size

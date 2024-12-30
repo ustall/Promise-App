@@ -14,6 +14,14 @@
             android:id="@+id/action_main_promises_fragment_to_addPromiseFragment"
             app:destination="@id/addPromiseFragment"
             app:enterAnim="@anim/slide_in_right_fast" />
+        <action
+            android:id="@+id/action_main_promises_fragment_to_editPromiseFragment"
+            app:destination="@id/editPromiseFragment"
+            app:enterAnim="@anim/slide_in_right_fast"/>
+        <action
+            android:id="@+id/action_main_promises_fragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_out_to_left_fast"/>
     </fragment>
 
     <fragment
@@ -31,6 +39,27 @@
             android:id="@+id/action_addPromiseFragment_to_main_promises_fragment"
             app:destination="@id/main_promises_fragment"
             app:enterAnim="@anim/slide_out_to_left_fast" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editPromiseFragment"
+        android:name="com.example.pledge.ui.EditPromiseFragment"
+        android:label="EditPromiseFragment"
+        tools:layout="@layout/edit_promise_fragment">
+        <action
+            android:id="@+id/action_editPromiseFragment_to_main_promises_fragment"
+            app:destination="@id/main_promises_fragment"
+            app:enterAnim="@anim/slide_out_to_left_fast"/>
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.pledge.ui.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/profile">
+        <action
+            android:id="@+id/action_profileFragment_to_main_promises_fragment"
+            app:destination="@id/main_promises_fragment"
+            app:enterAnim="@anim/slide_in_right_fast" />
     </fragment>
 
 </navigation>

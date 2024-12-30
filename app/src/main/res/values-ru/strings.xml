@@ -46,5 +46,23 @@
     <string name="are_you_sure_you_want_to_delete_this_promise">Вы точно хотите удалить ваше обещание?</string>
     <string name="promise_deleted">Обещание удалено</string>
     <string name="undo">Отмена</string>
+    <string name="fill_your_promise">Напиши свое обещание!</string>
+    <string name="keeping">Держишся c</string>
+    <string name="save">Сохранить</string>
 
+    <string name="change_theme">Изменить тему</string>
+    <string name="delete_all_promises">Удалить все обещания</string>
+    <string name="change_language">Изменить язык</string>
+    <string name="all_promises_deleted">Все обещания были удалены.</string>
+    <string name="theme_changed">Тема изменена</string>
+    <string name="current_streak">Текущая серия</string>
+    <string name="_0_days">0 дней</string>
+    <string name="longest_streak">Самая длинная серия</string>
+    <string name="profile">Профиль</string>
+    <string name="most_challenging_promise">Самое сложное обещание</string>
+    <string name="promise_none">Обещание: Нет</string>
+    <string name="total_violations">Всего нарушений</string>
+    <string name="_0">0</string>
+    <string name="promise">Обещание: %1$s</string>
+    <string name="violations_2">Нарушений: %1$s</string>
 </resources>

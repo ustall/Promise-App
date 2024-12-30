@@ -6,25 +6,22 @@
     android:layout_height="match_parent"
     >
 
-    <include
+    <FrameLayout
         android:id="@+id/nav_tool_bar"
-        layout="@layout/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!-- Стрик -->
-    <include
+    <FrameLayout
         android:id="@+id/promises_streak"
-        layout="@layout/promises_streak"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nav_tool_bar"
+        android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nav_tool_bar" />
 
     <include
         android:id="@+id/promises_list_view"

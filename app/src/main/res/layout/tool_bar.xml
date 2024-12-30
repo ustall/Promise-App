@@ -13,10 +13,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="8dp">
+        android:padding="8dp"
+        >
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/profileButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="start"
@@ -24,7 +25,8 @@
             android:clickable="true"
             android:contentDescription="@string/settings"
             android:foregroundGravity="fill"
-            app:srcCompat="@drawable/baseline_person_24" />
+            app:srcCompat="@drawable/baseline_person_24"
+            android:foreground="?attr/selectableItemBackground"/>
 
         <!-- Пространство для центрирования кнопки справа -->
         <Space
@@ -34,14 +36,15 @@
 
         <!-- Кнопка справа -->
         <ImageButton
-            android:id="@+id/action_settings"
+            android:id="@+id/action_settingsButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/rounded_button_background"
             android:clickable="true"
             android:contentDescription="@string/settings"
             android:foregroundGravity="fill"
-            app:srcCompat="@drawable/baseline_settings_24" />
+            app:srcCompat="@drawable/baseline_settings_24"
+            android:foreground="?attr/selectableItemBackground"/>
         <!--            android:foreground="?attr/selectableItemBackground"-->
     </LinearLayout>
     <!-- Разделитель (граница снизу) -->

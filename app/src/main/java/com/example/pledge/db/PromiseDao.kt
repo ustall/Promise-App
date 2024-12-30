@@ -19,4 +19,10 @@ interface PromiseDao {
 
     @Update
     suspend fun updatePromise(promise: Promise)
+
+    @Query("SELECT * FROM promise WHERE id = :id LIMIT 1")
+    suspend fun getPromiseById(id: Long): Promise?
+
+    @Query("DELETE FROM Promise")
+    suspend fun deleteAll()
 }

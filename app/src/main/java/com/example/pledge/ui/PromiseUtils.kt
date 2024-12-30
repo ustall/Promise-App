@@ -1,8 +1,7 @@
-package com.example.pledge.utils
+package com.example.pledge.ui
 
 import android.content.Context
 import com.example.pledge.R
-import com.example.pledge.db.Promise
 import java.time.Duration
 
 object PromiseUtils {

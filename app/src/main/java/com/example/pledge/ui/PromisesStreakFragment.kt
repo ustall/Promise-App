@@ -27,7 +27,6 @@ class PromisesStreakFragment : Fragment() {
         savedInstanceState: Bundle?
         ): View {
             // Инициализация биндинга
-            Log.d("PromisesStreakFragment", "onCreateView - savedInstanceState: $savedInstanceState")
             binding = PromisesStreakBinding.inflate(inflater, container, false)
 
         // Инициализация базы данных
@@ -35,8 +34,6 @@ class PromisesStreakFragment : Fragment() {
         requireContext(),
         AppDatabase::class.java, "promise_database"
         ).build()
-
-        Log.d("PromisesStreakFragment", "onCreateView")
 
         updateStreakNumber()
 

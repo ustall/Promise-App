@@ -51,16 +51,26 @@ class PromisesRecycleViewFragment : Fragment() {
         ).build()
 
         // Инициализация адаптера
-        adapter = PledgeRecycleViewAdapter(emptyList()) { promise ->
-            showResetTimerDialog(promise)
-        }
+        adapter = PledgeRecycleViewAdapter(
+            emptyList(),
+            onClick = { promise ->
+                val bundle = Bundle().apply {
+                    putLong("promiseId", promise.id) // Передаем только id Promise
+                }
+
+                // Переход к EditPromiseFragment
+                findNavController().navigate(R.id.action_main_promises_fragment_to_editPromiseFragment, bundle)
+            },
+            onLongClick = { promise ->
+                showResetTimerDialog(promise)
+            }
+        )
         binding.promisesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.promisesRecyclerView.adapter = adapter
 
         // Добавляем ItemTouchHelper для свайпа
         val itemTouchHelper = ItemTouchHelper(createSwipeToDeleteCallback())
         itemTouchHelper.attachToRecyclerView(binding.promisesRecyclerView)
-
 
         // Загрузка данных
         loadPromises()
@@ -182,6 +192,15 @@ class PromisesRecycleViewFragment : Fragment() {
         adapter.addItemAt(position, promise)
         if (binding.textViewIfDbEmpty.visibility == View.VISIBLE) {
             binding.textViewIfDbEmpty.visibility = View.GONE
+        }
+    }
+
+    fun deleteAllPromises() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            db.promiseDao().deleteAll()
+            withContext(Dispatchers.Main) {
+                loadPromises()
+            }
         }
     }
 }

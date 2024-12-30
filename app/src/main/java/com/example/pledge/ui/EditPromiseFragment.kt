@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.pledge.AppDatabase
 import com.example.pledge.R
-import com.example.pledge.databinding.AddNewPromiseFragmentBinding
+import com.example.pledge.databinding.EditPromiseFragmentBinding
 import com.example.pledge.db.Promise
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
@@ -24,9 +24,11 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class AddPromiseFragment : Fragment() {
+class EditPromiseFragment : Fragment() {
 
-    private lateinit var binding: AddNewPromiseFragmentBinding
+    private var promiseId: Long = 0L
+    private var promise: Promise? = null
+    private lateinit var binding: EditPromiseFragmentBinding
     private lateinit var textDateDate: TextView
     private var selectedDate: Calendar = Calendar.getInstance()
 
@@ -35,7 +37,7 @@ class AddPromiseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Initialize the binding
-        binding = AddNewPromiseFragmentBinding.inflate(inflater, container, false)
+        binding = EditPromiseFragmentBinding.inflate(inflater, container, false)
 
         // Return the root view from the binding
         return binding.root
@@ -44,39 +46,43 @@ class AddPromiseFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility", "ShowToast")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            promiseId = it.getLong("promiseId", 0L) // Извлекаем id
+        }
 
+        // Инициализация UI элементов
         val promiseEditText: EditText = binding.taskTextEdit
         textDateDate = binding.textDateDate
         val cancelButton = binding.cancelButton
         val confirmButton = binding.confirmButton
 
-        // Handle date selection
+        // Загружаем данные для редактирования
+        loadPromiseData()
+
+        // Обработка выбора даты
         textDateDate.setOnClickListener {
             showDatePickerDialog()
         }
 
-        // Handle "Cancel" button
+        // Обработка кнопки "Отмена"
         cancelButton.setOnClickListener {
-            findNavController().navigate(R.id.action_addPromiseFragment_to_main_promises_fragment)// Go back to the previous screen
+            findNavController().navigate(R.id.action_editPromiseFragment_to_main_promises_fragment)
         }
 
-
-        // Handle "Confirm" button
+        // Обработка кнопки "Подтвердить"
         confirmButton.setOnClickListener {
             val promiseText = promiseEditText.text.toString()
             if (promiseText.isNotBlank()) {
-                val newPromise = Promise(
-                    text = promiseText,
-                    creationDate = selectedDate.timeInMillis,
-                    lastFailureDate = selectedDate.timeInMillis,
-                    failureCount = 0
-                )
-
-                // Save the promise to the database
-                savePromiseToDatabase(newPromise)
-                findNavController().navigate(R.id.action_addPromiseFragment_to_main_promises_fragment)
-            }
-            else {
+                // Обновляем данные существующего Promise
+                promise?.let {
+                    it.text = promiseText
+                    it.lastFailureDate = selectedDate.timeInMillis
+                    it.creationDate = selectedDate.timeInMillis
+                    // Сохраняем изменения
+                    updatePromiseInDatabase(it)
+                }
+                findNavController().navigate(R.id.action_editPromiseFragment_to_main_promises_fragment)
+            } else {
                 val snackbar = Snackbar.make(binding.root,
                     getString(R.string.fill_your_promise), Snackbar.LENGTH_LONG)
                 snackbar.show()
@@ -84,26 +90,52 @@ class AddPromiseFragment : Fragment() {
         }
     }
 
-    private fun savePromiseToDatabase(promise: Promise) {
+    // Загружаем данные Promise для редактирования
+    private fun loadPromiseData() {
         val db = AppDatabase.getDatabase(requireContext())
         val promiseDao = db.promiseDao()
 
         lifecycleScope.launch(Dispatchers.IO) {
-            // Save the new promise to the database
-            promiseDao.insertPromise(promise)
+            // Получаем Promise по id
+            promise = promiseDao.getPromiseById(promiseId)
 
             withContext(Dispatchers.Main) {
-                // Get the promises list fragment
-                val fragment = parentFragmentManager.findFragmentById(R.id.fragment_container) as? PromisesRecycleViewFragment
-                fragment?.let {
-                    // Load the updated list of promises from the database
-                    val updatedPromises = promiseDao.getAll()
-                    it.loadPromises() // Pass the new data to the fragment for UI update
+                promise?.let {
+                    // Заполняем UI данными из Promise
+                    binding.taskTextEdit.setText(it.text)
+                    binding.textStreakDays.text=
+                        context?.let { it1 -> PromiseUtils.formatTimeHeld(it1, promise!!.lastFailureDate) }
+                    binding.textViolations.text= context?.let {
+                        it1 -> PromiseUtils.formatViolationsCount(it1, promise!!.failureCount) }
+                    selectedDate.timeInMillis = it.lastFailureDate
+
+                    updateDateDisplay()
                 }
             }
         }
     }
 
+    // Функция для обновления данных Promise в базе данных
+    private fun updatePromiseInDatabase(promise: Promise) {
+        val db = AppDatabase.getDatabase(requireContext())
+        val promiseDao = db.promiseDao()
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            // Обновляем Promise в базе данных
+            promiseDao.updatePromise(promise)
+
+            withContext(Dispatchers.Main) {
+                // После обновления, обновляем список в родительском фрагменте
+                val fragment = parentFragmentManager.findFragmentById(R.id.fragment_container) as? PromisesRecycleViewFragment
+                fragment?.let {
+                    val updatedPromises = promiseDao.getAll() // Получаем обновленные данные
+                    it.loadPromises() // Загружаем обновленный список
+                }
+            }
+        }
+    }
+
+    // Функция для выбора даты
     private fun showDatePickerDialog() {
         val currentYear = selectedDate.get(Calendar.YEAR)
         val currentMonth = selectedDate.get(Calendar.MONTH)
@@ -122,16 +154,17 @@ class AddPromiseFragment : Fragment() {
         datePickerDialog.show()
     }
 
+    // Обновление отображаемой даты
     private fun updateDateDisplay() {
         val formattedDate = SimpleDateFormat("yyyy MM dd", Locale.getDefault()).format(selectedDate.time)
         textDateDate.text = formattedDate
     }
+
     override fun onResume() {
         super.onResume()
-
         // Перехват системной кнопки "Назад"
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().navigate(R.id.action_addPromiseFragment_to_main_promises_fragment)  // Возврат на предыдущий экран при нажатии "Назад"
+            findNavController().navigate(R.id.action_editPromiseFragment_to_main_promises_fragment)
         }
     }
 }
