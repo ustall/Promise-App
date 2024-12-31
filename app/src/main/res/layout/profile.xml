@@ -18,11 +18,12 @@
             android:id="@+id/profile_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="32dp"
             android:text="@string/your_stats"
-            android:textSize="52sp"
-            android:textStyle="bold"
             android:textColor="?android:textColorPrimary"
-            android:paddingBottom="32dp" />
+            android:textSize="52sp"
+            android:textStyle="bold" />
 
         <!-- Current Streak -->
         <TextView

@@ -65,4 +65,6 @@
     <string name="_0">0</string>
     <string name="promise">Обещание: %1$s</string>
     <string name="violations_2">Нарушений: %1$s</string>
+    <string name="your_stats">Ваша статистика</string>
+    <string name="are_you_sure_you_want_to_delete_all_promises">Вы уверены что хотите удалить все обещания?</string>
 </resources>
