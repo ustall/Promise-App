@@ -1,6 +1,6 @@
-# Pledge App
+# Promise App
 
-Pledge App is an Android application for tracking personal promises and statistics associated with them. It helps users to monitor their progress, avoid breaking promises, and maintain a healthy streak of fulfilling commitments.
+Promise App is an Android application for tracking personal promises and statistics associated with them. It helps users to monitor their progress, avoid breaking promises, and maintain a healthy streak of fulfilling commitments.
 
 ---
 ## Table of Contents
@@ -43,9 +43,13 @@ Pledge App is an Android application for tracking personal promises and statisti
 
  ## Usage
 
-1. Download Pledge.apk from Releases page
+1. Download Promise.apk from Releases page
 2. Install apk
-   
+
+1. Add new promise via "+" button
+2. Edit existing promise by taping on it
+3. Reset promise timer and add Violations by long taping on promise
+4. Delete promise by swiping it to the left
 ---
 
    ## Installation
