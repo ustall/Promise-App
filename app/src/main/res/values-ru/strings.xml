@@ -59,6 +59,7 @@
     <string name="_0_days">0 дней</string>
     <string name="longest_streak">Самая длинная серия</string>
     <string name="profile">Профиль</string>
+    <string name="most_challenging_promise">Самое сложное обещание</string>
     <string name="total_violations">Всего нарушений</string>
     <string name="_0">0</string>
     <string name="promise">Обещание: %1$s</string>
@@ -69,7 +70,7 @@
     <string name="days_">%1$d дней</string>
     <string name="violations_">Нарушения: %1$d</string>
     <string name="violations_count_">%1$d</string>
-    <string name="promise_none">Обещание: Нет</string>
+    <string name="promise_none">Пока нет</string>
 
     <!-- Defaults -->
     <string name="default_days">0 дней</string>
