@@ -38,7 +38,11 @@ Promise App is an Android application for tracking personal promises and statist
 ## Screenshots
 
 ![UI](/Screenshots/UI%20(1).jpg)
-
+![UI](/Screenshots/UI%20(2).jpg)
+![UI](/Screenshots/UI%20(3).jpg)
+![UI](/Screenshots/UI%20(4).jpg)
+![UI](/Screenshots/UI%20(5).jpg)
+![UI](/Screenshots/UI%20(6).jpg)
 ---
 
  ## Usage
