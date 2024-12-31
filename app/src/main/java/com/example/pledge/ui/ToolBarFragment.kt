@@ -79,13 +79,13 @@ class ToolBarFragment : Fragment() {
 
     private fun showDeleteAllDialog() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete All Promises")
-            .setMessage("Are you sure you want to delete all promises?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle(R.string.delete_all_promises)
+            .setMessage(getString(R.string.are_you_sure_you_want_to_delete_all_promises))
+            .setPositiveButton(R.string.yes) { _, _ ->
                 // Отправка события в PromisesRecycleViewFragment через родительский Fragment
                 (parentFragment as? PromisesRecycleViewFragment)?.deleteAllPromises()
             }
-            .setNegativeButton("No", null)
+            .setNegativeButton(R.string.no, null)
             .show()
     }
 }

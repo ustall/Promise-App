@@ -18,8 +18,8 @@
             android:id="@+id/profile_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/profile"
-            android:textSize="32sp"
+            android:text="@string/your_stats"
+            android:textSize="52sp"
             android:textStyle="bold"
             android:textColor="?android:textColorPrimary"
             android:paddingBottom="32dp" />
@@ -32,13 +32,23 @@
             android:text="@string/current_streak"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:textColor="?android:textColorSecondary" />
+            android:textColor="?android:textColorSecondary"
+            android:paddingBottom="20dp"/>
 
         <TextView
             android:id="@+id/current_streak_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_0_days"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="?android:textColorPrimary"
+            android:paddingBottom="20dp"/>
+        <TextView
+            android:id="@+id/current_violations_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/violations"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="?android:textColorPrimary"
@@ -111,6 +121,5 @@
             android:textStyle="bold"
             android:textColor="?android:textColorPrimary"
             android:paddingBottom="16dp" />
-
     </LinearLayout>
 </ScrollView>

@@ -25,4 +25,5 @@ interface PromiseDao {
 
     @Query("DELETE FROM Promise")
     suspend fun deleteAll()
+
 }

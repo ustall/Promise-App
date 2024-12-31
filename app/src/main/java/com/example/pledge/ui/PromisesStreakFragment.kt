@@ -39,9 +39,13 @@ class PromisesStreakFragment : Fragment() {
 
         return binding.root
     }
+    override fun onResume() {
+        super.onResume()
+        updateStreakNumber()
+    }
 
     @SuppressLint("SetTextI18n")
-    private fun updateStreakNumber() {
+    fun updateStreakNumber() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val promises = db.promiseDao().getAll()
@@ -73,4 +77,5 @@ class PromisesStreakFragment : Fragment() {
             }
         }
     }
+
 }

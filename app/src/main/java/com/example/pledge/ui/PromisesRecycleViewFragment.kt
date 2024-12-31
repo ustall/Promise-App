@@ -17,6 +17,7 @@ import com.example.pledge.AppDatabase
 import com.example.pledge.R
 import com.example.pledge.databinding.PromisesListViewBinding
 import com.example.pledge.db.Promise
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -94,7 +95,7 @@ class PromisesRecycleViewFragment : Fragment() {
     }
 
     private fun showResetTimerDialog(promise: Promise) {
-        AlertDialog.Builder(requireContext())
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.reset_timer))
             .setMessage(getString(R.string.do_you_want_to_reset_the_timer_for_this_promise))
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
@@ -112,7 +113,6 @@ class PromisesRecycleViewFragment : Fragment() {
                     lastFailureDate = System.currentTimeMillis()
                 )
                 db.promiseDao().updatePromise(updatedPromise)
-
                 withContext(Dispatchers.Main) {
                     loadPromises()
                 }
@@ -143,7 +143,7 @@ class PromisesRecycleViewFragment : Fragment() {
     }
 
     private fun showDeleteConfirmationDialog(promise: Promise, position: Int) {
-        AlertDialog.Builder(requireContext())
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.delete_promise))
             .setMessage(getString(R.string.are_you_sure_you_want_to_delete_this_promise))
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
@@ -197,9 +197,12 @@ class PromisesRecycleViewFragment : Fragment() {
 
     fun deleteAllPromises() {
         lifecycleScope.launch(Dispatchers.IO) {
-            db.promiseDao().deleteAll()
+            db.promiseDao().deleteAll()  // Удаление всех записей из базы данных
+            val deletedCount = db.promiseDao().getAll().size
+            Log.d("DeleteAllPromises", "Remaining items in database: $deletedCount")// Получаем количество удалённых элементов
             withContext(Dispatchers.Main) {
-                loadPromises()
+                loadPromises()  // Обновляем список обещаний
+                adapter.notifyDataSetChanged()   // Уведомляем адаптер об удалении элементов
             }
         }
     }

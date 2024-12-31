@@ -1,6 +1,5 @@
 package com.example.pledge.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.example.pledge.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import updateProfileData
 
 class ProfileFragment : Fragment(R.layout.profile) {
 
@@ -28,36 +28,38 @@ class ProfileFragment : Fragment(R.layout.profile) {
     ): View {
         _binding = ProfileBinding.inflate(inflater, container, false)
         db = AppDatabase.getInstance(requireContext())
+        lifecycleScope.launch {
+            updateProfileData(db.promiseDao(), db.profileDataDao())
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Load profile data
         loadProfileData()
     }
 
-    @SuppressLint("StringFormatMatches")
+
     private fun loadProfileData() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val currentStreak = db.statsDao().getCurrentStreak()
-            val longestStreak = db.statsDao().getLongestStreak()
-            val mostChallenging = db.statsDao().getMostChallengingPromise()
-            val totalViolations = db.statsDao().getTotalViolations()
-
+            val profileData = db.profileDataDao().getProfileData()
             withContext(Dispatchers.Main) {
-                binding.currentStreakValue.text = "$currentStreak days"
-                binding.longestStreakValue.text = "$longestStreak days"
-                mostChallenging?.let {
-                    binding.mostChallengingValue.text = getString(R.string.promise, it.text)
-                    binding.mostChallengingViolations.text =
-                        getString(R.string.violations_2, it.failureCount)
+                profileData?.let {
+                    binding.currentStreakValue.text = "${it.currentStreak} days"
+                    binding.longestStreakValue.text = "${it.longestStreak} days"
+                    binding.mostChallengingValue.text = it.mostChallengingPromise.ifEmpty { "Promise: None" }
+                    binding.mostChallengingViolations.text = "Violations: ${it.mostChallengingViolations}"
+                    binding.totalViolationsValue.text = "${it.lifetimeViolations}"
+                    binding.currentViolationsValue.text = "${it.totalViolations}"
                 } ?: run {
+                    binding.currentStreakValue.text = "0 days"
+                    binding.longestStreakValue.text = "0 days"
                     binding.mostChallengingValue.text = "Promise: None"
                     binding.mostChallengingViolations.text = "Violations: 0"
+                    binding.totalViolationsValue.text = "0"
+                    binding.currentViolationsValue.text = "0"
                 }
-                binding.totalViolationsValue.text = "$totalViolations"
             }
         }
     }
@@ -66,9 +68,14 @@ class ProfileFragment : Fragment(R.layout.profile) {
         super.onDestroyView()
         _binding = null
     }
+
     override fun onResume() {
         super.onResume()
-        // Перехват системной кнопки "Назад"
+        // Handle back button press
+        lifecycleScope.launch {
+            updateProfileData(db.promiseDao(), db.profileDataDao())
+        }
+        binding.root.invalidate()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.action_profileFragment_to_main_promises_fragment)
         }
