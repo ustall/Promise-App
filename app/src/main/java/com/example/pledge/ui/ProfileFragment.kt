@@ -38,6 +38,9 @@ class ProfileFragment : Fragment(R.layout.profile) {
         super.onViewCreated(view, savedInstanceState)
         // Load profile data
         loadProfileData()
+        binding.backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_main_promises_fragment)
+        }
     }
 
 
@@ -46,23 +49,27 @@ class ProfileFragment : Fragment(R.layout.profile) {
             val profileData = db.profileDataDao().getProfileData()
             withContext(Dispatchers.Main) {
                 profileData?.let {
-                    binding.currentStreakValue.text = "${it.currentStreak} days"
-                    binding.longestStreakValue.text = "${it.longestStreak} days"
-                    binding.mostChallengingValue.text = it.mostChallengingPromise.ifEmpty { "Promise: None" }
-                    binding.mostChallengingViolations.text = "Violations: ${it.mostChallengingViolations}"
-                    binding.totalViolationsValue.text = "${it.lifetimeViolations}"
-                    binding.currentViolationsValue.text = "${it.totalViolations}"
+                    binding.currentStreakValue.text = getString(R.string.days_, it.currentStreak)
+                    binding.longestStreakValue.text = getString(R.string.days_, it.longestStreak)
+                    binding.mostChallengingValue.text = it.mostChallengingPromise.ifEmpty {
+                        getString(R.string.promise_none)
+                    }
+                    binding.mostChallengingViolations.text =
+                        getString(R.string.violations, it.mostChallengingViolations)
+                    binding.totalViolationsValue.text = getString(R.string.violations_count_, it.lifetimeViolations)
+                    binding.currentViolationsValue.text = getString(R.string.violations_count_, it.totalViolations)
                 } ?: run {
-                    binding.currentStreakValue.text = "0 days"
-                    binding.longestStreakValue.text = "0 days"
-                    binding.mostChallengingValue.text = "Promise: None"
-                    binding.mostChallengingViolations.text = "Violations: 0"
-                    binding.totalViolationsValue.text = "0"
-                    binding.currentViolationsValue.text = "0"
+                    binding.currentStreakValue.text = getString(R.string.default_days)
+                    binding.longestStreakValue.text = getString(R.string.default_days)
+                    binding.mostChallengingValue.text = getString(R.string.promise_none)
+                    binding.mostChallengingViolations.text = getString(R.string.default_violations)
+                    binding.totalViolationsValue.text = getString(R.string.default_violations_count)
+                    binding.currentViolationsValue.text = getString(R.string.default_violations_count)
                 }
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
